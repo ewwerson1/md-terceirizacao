@@ -1,6 +1,5 @@
 <template>
   <main class="text-zinc-800">
-
     <section
       class="relative bg-cover bg-center min-h-[100vh] sm:min-h-[80vh] flex items-center justify-center"
       :style="{ backgroundImage: `url(${bgImage})` }"
@@ -31,6 +30,7 @@
         </a>
       </div>
     </section>
+
     <section class="bg-[#1F2937] py-12 ">
       <div class="max-w-7xl mx-auto px-6">
         <h2 class="text-center text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-800 mb-12">
@@ -77,8 +77,7 @@
             <div
               v-for="(_, index) in partners"
               :key="index"
-              :class="[
-                'w-2 h-2 rounded-full transition-all',
+              :class="[ 'w-2 h-2 rounded-full transition-all',
                 currentIndex === index ? 'bg-[#EAB308] w-6' : 'bg-gray-300'
               ]"
             ></div>
@@ -174,7 +173,7 @@
           Ver Todos os Detalhes dos Serviços
         </router-link>
       </div>
-      </section>
+    </section>
 
     <section class="bg-[#1F2937] text-white py-20 text-center">
       <div class="max-w-4xl mx-auto px-6">
@@ -202,7 +201,6 @@
         </div>
       </div>
     </section>
-
   </main>
 </template>
 
@@ -211,6 +209,11 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import bgImage from '../assets/images/equipe.jpeg'
 import Card from '../components/Cards.vue'
 import '@fortawesome/fontawesome-free/css/all.min.css'
+
+// ✅ Importações das logos corrigidas:
+import paraskateLogo from '../assets/images/paraskate.png'
+import recifeVoleiLogo from '../assets/images/recife-volei.png'
+import cbgLogo from '../assets/images/cbg.png'
 
 const benefitCards = [
   {
@@ -244,20 +247,21 @@ const serviceCards = [
   { title: 'Ascensorista', icon: 'fa-solid fa-elevator', description: 'Operação profissional de elevadores' }
 ]
 
+// ✅ Corrigido para usar os imports
 const partners = [
-  { name: 'Paraskate Tour', logo: '/src/assets/images/paraskate.png' },
-  { name: 'Recife Vôlei', logo: '/src/assets/images/recife-volei.png' },
-  { name: 'Confederação Brasileira de Ginástica', logo: '/src/assets/images/cbg.png' },
+  { name: 'Paraskate Tour', logo: paraskateLogo },
+  { name: 'Recife Vôlei', logo: recifeVoleiLogo },
+  { name: 'Confederação Brasileira de Ginástica', logo: cbgLogo }
 ]
 
-// Autoplay no mobile
+// ✅ Carrossel (agora funciona em qualquer tamanho de tela)
 const currentIndex = ref(0)
 let interval = null
 
 const startAutoplay = () => {
   interval = setInterval(() => {
     currentIndex.value = (currentIndex.value + 1) % partners.length
-  }, 3000) // Troca a cada 3 segundos
+  }, 3000)
 }
 
 const stopAutoplay = () => {
@@ -265,26 +269,15 @@ const stopAutoplay = () => {
 }
 
 onMounted(() => {
-  // Ativa autoplay apenas em telas menores que 768px (mobile/tablet)
-  const checkMobile = () => {
-    if (window.innerWidth < 768) {
-      startAutoplay()
-    } else {
-      stopAutoplay()
-    }
-  }
-  checkMobile()
-  window.addEventListener('resize', checkMobile)
+  startAutoplay()
 })
 
 onUnmounted(() => {
   stopAutoplay()
-  window.removeEventListener('resize', () => {})
 })
 </script>
 
 <style scoped>
-/* Transições suaves */
 .transition-transform {
   transition: transform 0.5s ease-in-out;
 }
