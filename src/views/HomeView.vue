@@ -106,7 +106,7 @@
         class="max-w-7xl mt-16 mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 px-6 items-center"
       >
         <img
-          src="../assets/images/equipe.jpeg"
+          src="../assets/images/equipe.jpg"
           alt="Equipe MD Serviços"
           class="rounded-2xl shadow-xl w-full max-h-[400px] object-cover"
         />
