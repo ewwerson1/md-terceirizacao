@@ -19,7 +19,7 @@
             <a href="#" class="bg-yellow-400/20 p-2 rounded-full hover:bg-yellow-400/40 transition-colors duration-200">
               <i class="fab fa-instagram text-yellow-400"></i>
             </a>
-            <a href="#" class="bg-yellow-400/20 p-2 rounded-full hover:bg-yellow-400/40 transition-colors duration-200">
+            <a href="https://wa.me/5581987488446" class="bg-yellow-400/20 p-2 rounded-full hover:bg-yellow-400/40 transition-colors duration-200">
               <i class="fab fa-whatsapp text-yellow-400"></i>
             </a>
           </div>
@@ -29,16 +29,19 @@
           <h3 class="text-yellow-400 font-extrabold text-lg mb-4">Links Rápidos</h3>
           <ul class="space-y-2 text-sm">
             <li>
-              <a href="#" class="hover:text-yellow-400 transition">Início</a>
+              <router-link to="/" class="hover:text-yellow-400 transition">Início</router-link>
             </li>
             <li>
-              <a href="#" class="hover:text-yellow-400 transition">Quem Somos</a>
+              <router-link to="/sobre" class="hover:text-yellow-400 transition">Quem Somos</router-link>
             </li>
             <li>
-              <a href="#" class="hover:text-yellow-400 transition">Serviços</a>
+              <router-link to="/servicos" class="hover:text-yellow-400 transition">Serviços</router-link>
             </li>
             <li>
-              <a href="#" class="hover:text-yellow-400 transition">Contatos</a>
+              <router-link to="/contato" class="hover:text-yellow-400 transition">Contatos</router-link>
+            </li>
+             <li>
+              <router-link to="/trabalhe-conosco" class="hover:text-yellow-400 transition">Trabalhe Conosco</router-link>
             </li>
           </ul>
         </div>
@@ -104,7 +107,7 @@
       
       <div class="border-t border-yellow-400/20 mt-10 pt-6">
         <p class="text-center text-zinc-500 text-xs">
-          © 2025 MD Terceirização — Todos os direitos reservados.
+          © 2025 MD Terceirização LTDA — Todos os direitos reservados.
         </p>
       </div>
     </footer>
