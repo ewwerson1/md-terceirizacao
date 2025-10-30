@@ -63,11 +63,11 @@
               :key="index"
               class="flex-shrink-0 w-full flex justify-center items-center px-4"
             >
-              <div class="w-48 h-28 flex items-center justify-center bg-gray-50 rounded-xl shadow-md p-4">
+              <div class="w-64 flex items-center justify-center rounded-xl p-4">
                 <img
                   :src="partner.logo"
                   :alt="partner.name"
-                  class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                  class="max-w-full max-h-full object-contain transition-all duration-300"
                 />
               </div>
             </div>
