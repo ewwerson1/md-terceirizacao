@@ -16,7 +16,7 @@ const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
 
-// ✅ Fecha o menu e faz navegação suave sem reload
+// ✅ Fecha o menu e navega para o topo suavemente (sem reload)
 const handleNavClick = (event, path) => {
   event.preventDefault()
 

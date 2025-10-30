@@ -12,15 +12,11 @@ const router = createRouter({
     {
       path: '/sobre',
       name: 'sobre',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
     {
       path: '/servicos',
       name: 'servicos',
-    
       component: () => import('../views/ServicosView.vue'),
     },
     {
@@ -31,12 +27,20 @@ const router = createRouter({
     {
       path: '/trabalhe-conosco',
       name: 'trabalhe-conosco',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/TrabalheConosco.vue'),
     },
   ],
+
+  // ✅ Faz com que a página volte ao topo ao mudar de rota
+  scrollBehavior(to, from, savedPosition) {
+    // Se o usuário usou o botão de voltar/avançar, restaura a posição anterior
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      // Caso contrário, sempre volta ao topo
+      return { top: 0, behavior: 'smooth' } // "smooth" deixa a rolagem animada
+    }
+  },
 })
 
 export default router
