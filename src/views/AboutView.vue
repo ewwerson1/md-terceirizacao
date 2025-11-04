@@ -1,10 +1,12 @@
 <template>
   <div class="bg-[#161E2C]">
+    <!-- HERO SECTION -->
     <section
       ref="heroSection"
       id="hero"
       class="relative flex flex-col items-center justify-center text-center min-h-[100vh] pb-20 lg:pb-0 overflow-hidden"
     >
+      <!-- Fundo com Parallax -->
       <div
         class="absolute inset-0 bg-center bg-cover bg-no-repeat grayscale brightness-[0.4] scale-105 transition-transform duration-500 ease-out"
         :style="{
@@ -14,7 +16,8 @@
         }"
       ></div>
 
-      <div class="relative z-10 px-4 sm:px-6 max-w-3xl mx-auto mb-10 mt-20">
+      <!-- Texto Principal -->
+      <div class="relative z-10 px-4 sm:px-6 max-w-3xl mx-auto mb-10 mt-20 v-scroll-animate">
         <h1
           class="text-4xl sm:text-6xl md:text-7xl font-extrabold mb-6 relative inline-block bg-gradient-to-r from-[#FACB15] to-[#CB8B04] bg-clip-text text-transparent"
         >
@@ -25,13 +28,14 @@
         </p>
       </div>
 
+      <!-- MISSÃO, VISÃO E VALORES -->
       <div
         class="relative z-10 flex flex-col lg:flex-row justify-center gap-6 max-w-7xl mx-auto px-4 sm:px-6 mb-8"
       >
         <div
           v-for="(item, i) in mvv"
           :key="i"
-          class="bg-gradient-to-br from-[#161E2C]/80 to-white/10 backdrop-blur-md border border-yellow-500/40 rounded-xl shadow-lg text-center transition-transform hover:-translate-y-2 w-full lg:w-1/3 max-w-md p-6"
+          class="bg-gradient-to-br from-[#161E2C]/80 to-white/10 backdrop-blur-md border border-yellow-500/40 rounded-xl shadow-lg text-center transition-transform hover:-translate-y-2 w-full lg:w-1/3 max-w-md p-6 v-scroll-animate"
         >
           <i :class="['text-yellow-500 text-4xl mb-3', item.icon]"></i>
           <h3 class="font-bold text-gray-200 mb-2 text-xl">
@@ -49,7 +53,8 @@
       ></div>
     </section>
 
-    <section class="bg-[#161E2C] text-white">
+    <!-- HISTÓRIA -->
+    <section class="bg-[#161E2C] text-white v-scroll-animate">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <h2
           class="text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-500 mb-4 text-center"
@@ -67,7 +72,7 @@
           <div
             v-for="(card, i) in cards"
             :key="i"
-            class="bg-gradient-to-br from-[#161E2C] to-white/10 backdrop-blur-xl border border-yellow-400/30 rounded-3xl p-6 text-center hover:-translate-y-2 transition-transform shadow-lg hover:bg-white/5 hover:border-yellow-400/50 hover:shadow-2xl"
+            class="bg-gradient-to-br from-[#161E2C] to-white/10 backdrop-blur-xl border border-yellow-400/30 rounded-3xl p-6 text-center hover:-translate-y-2 transition-transform shadow-lg hover:bg-white/5 hover:border-yellow-400/50 hover:shadow-2xl v-scroll-animate"
           >
             <i :class="['text-yellow-400 text-3xl mb-3', card.icon]"></i>
             <h3 class="font-bold mb-2 text-zinc-100">{{ card.title }}</h3>
@@ -83,15 +88,20 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useScrollAnimation } from '../composables/useScrollAnimation'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import heroImage from '../assets/images/aboutpage.jpeg'
 
+useScrollAnimation()
+
+// Parallax scroll
 const scrollY = ref(0)
 const handleScroll = () => (scrollY.value = window.scrollY)
 
 onMounted(() => window.addEventListener('scroll', handleScroll))
 onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 
+// Cards
 const cards = [
   {
     icon: 'fa-solid fa-medal',
@@ -110,6 +120,7 @@ const cards = [
   }
 ]
 
+// Missão, Visão e Valores
 const mvv = [
   {
     icon: 'fa-solid fa-flag',
@@ -127,7 +138,6 @@ const mvv = [
     text: 'Compromisso, Ética, Qualidade, Inovação e Respeito às Pessoas. Pilares que guiam todas as nossas ações.'
   }
 ]
-
 </script>
 
 <style scoped>
@@ -135,8 +145,19 @@ section {
   scroll-margin-top: 80px;
 }
 
-/* Fundo global de segurança */
 body {
   background-color: #161E2C;
+}
+
+/* Animação de scroll */
+.v-scroll-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animate-fadeInUp {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>

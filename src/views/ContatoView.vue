@@ -1,6 +1,6 @@
 <template>
   <section class="bg-[#161E2C] py-24 text-white" id="hero">
-    <div class="max-w-7xl mx-auto px-6 text-center mb-12">
+    <div class="max-w-7xl mx-auto px-6 text-center mb-12 v-scroll-animate">
       <h2 class="text-4xl font-bold text-yellow-500 mb-3">Entre em Contato</h2>
       <p class="text-zinc-300">Estamos prontos para atender você e sua empresa. Escolha o melhor canal para você.</p>
     </div>
@@ -13,7 +13,7 @@
         :icon="card.icon"
         :title="card.title"
         :description="card.description"
-        class="p-8"
+        class="p-8 v-scroll-animate transition-transform"
       />
     </div>
 
@@ -21,7 +21,7 @@
     <div class="max-w-7xl mx-auto px-6 mt-20 grid md:grid-cols-2 gap-12">
       
       <!-- FORMULÁRIO -->
-      <div class="bg-[#1B2533] border border-yellow-500/40 rounded-3xl p-8 shadow-lg">
+      <div class="bg-[#1B2533] border border-yellow-500/40 rounded-3xl p-8 shadow-lg v-scroll-animate">
         <h2 class="text-2xl font-bold mb-6">Envie uma Mensagem</h2>
         
         <div class="mb-4">
@@ -48,7 +48,7 @@
       </div>
 
       <!-- MAPA + CONTATO -->
-      <div class="space-y-6">
+      <div class="space-y-6 v-scroll-animate">
         <!-- MAPA -->
         <div class="rounded-3xl overflow-hidden border border-yellow-500/40">
         <iframe 
@@ -60,7 +60,6 @@
           loading="lazy" 
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
-
         </div>
 
         <!-- INFORMAÇÕES -->
@@ -95,10 +94,45 @@
 <script setup>
 import Card from '../components/Cards.vue'
 import '@fortawesome/fontawesome-free/css/all.min.css'
+import { onMounted } from 'vue'
 
 const cards = [
   { title: 'Sede Principal', icon: 'fa-solid fa-building', description: 'Visite-nos para uma consulta presencial.' },
   { title: 'Atendimento Telefônico', icon: 'fa-solid fa-phone', description: 'Nossa equipe está pronta para ajudar.' },
   { title: 'Suporte Online', icon: 'fa-solid fa-comments', description: 'Conecte-se conosco digitalmente.' }
 ]
+
+// Animação suave ao rolar
+onMounted(() => {
+  const elements = document.querySelectorAll('.v-scroll-animate')
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        // Pequeno delay progressivo para elementos próximos
+        entry.target.style.transitionDelay = `${index * 100}ms`
+        entry.target.classList.add('animate-fadeInUp')
+      }
+    })
+  }, { threshold: 0.1 })
+
+  elements.forEach(el => observer.observe(el))
+})
 </script>
+
+<style scoped>
+.transition-transform {
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Scroll Animation */
+.v-scroll-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animate-fadeInUp {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>

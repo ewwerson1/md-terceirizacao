@@ -5,7 +5,7 @@
       :style="{ backgroundImage: `url(${bgImage})` }"
     >
       <div class="absolute inset-0 bg-gradient-to-r from-black/100 to-black/50"></div>
-      <div class="relative z-10 text-center text-white px-4 sm:px-8 md:px-12">
+      <div class="relative z-10 text-center text-white px-4 sm:px-8 md:px-12 v-scroll-animate">
         <h1
           class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4"
         >
@@ -32,7 +32,7 @@
     </section>
 
     <section class="bg-[#1F2937] py-12 ">
-      <div class="max-w-7xl mx-auto px-6">
+      <div class="max-w-7xl mx-auto px-6 v-scroll-animate">
         <h2 class="text-center text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-800 mb-12">
           <span class="bg-gradient-to-r from-[#FACB15] to-[#CB8B04] bg-clip-text text-transparent">
             Empresas que Confiam em Nós
@@ -43,7 +43,7 @@
           <div
             v-for="(partner, index) in partners"
             :key="index"
-            class="w-64 flex items-center justify-center rounded-xl hover:scale-[105%] ease-in-out hover:duration-300 transition-all p-4"
+            class="w-48 flex items-center justify-center rounded-xl hover:scale-[105%] ease-in-out hover:duration-300 transition-all p-4"
           >
             <img
               :src="partner.logo"
@@ -90,7 +90,7 @@
       </div>
     </section>
 
-    <section id="about" class="bg-[#161E2C] text-white py-16 sm:py-20">
+    <section id="about" class="bg-[#161E2C] text-white py-16 sm:py-20 v-scroll-animate">
       <div class="flex justify-center">
         <h2
           class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 relative inline-block bg-gradient-to-r from-[#FACB15] to-[#CB8B04] bg-clip-text text-transparent"
@@ -108,9 +108,9 @@
         <img
           src="../assets/images/equipe.jpg"
           alt="Equipe MD Serviços"
-          class="rounded-2xl shadow-xl w-full max-h-[400px] object-cover"
+          class="rounded-2xl shadow-xl w-full max-h-[400px] object-cover v-scroll-animate"
         />
-        <div class="text-base sm:text-lg leading-relaxed">
+        <div class="text-base sm:text-lg leading-relaxed v-scroll-animate">
           <p class="mb-5 text-gray-300">
             Somos uma empresa líder em terceirização de serviços corporativos, com anos de experiência no mercado.
             Nossa missão é fornecer soluções completas e personalizadas que atendam às necessidades específicas de cada cliente.
@@ -135,12 +135,12 @@
           :icon="card.icon"
           :title="card.title"
           :description="card.description"
-          class="p-6 sm:p-8"
+          class="p-6 sm:p-8 v-scroll-animate"
         />
       </div>
     </section>
 
-    <section id="services" class="bg-gradient-to-b from-[#161E2C] to-[#1A222F] pb-16 sm:py-20">
+    <section id="services" class="bg-gradient-to-b from-[#161E2C] to-[#1A222F] pb-16 sm:py-20 v-scroll-animate">
       <div class="text-center">
         <h2
           class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 relative inline-block bg-gradient-to-r from-[#FACB15] to-[#CB8B04] bg-clip-text text-transparent"
@@ -161,7 +161,7 @@
           :icon="card.icon"
           :title="card.title"
           :description="card.description"
-          class="p-6"
+          class="p-6 v-scroll-animate"
         />
       </div>
       
@@ -175,7 +175,7 @@
       </div>
     </section>
 
-    <section class="bg-[#1F2937] text-white py-20 text-center">
+    <section class="bg-[#1F2937] text-white py-20 text-center v-scroll-animate">
       <div class="max-w-4xl mx-auto px-6">
         <h2 class="text-xl sm:text-4xl md:text-5xl font-bold mb-6 text-zinc-100">
           Pronto para Elevar o Nível da sua Empresa?
@@ -206,14 +206,17 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useScrollAnimation } from '../composables/useScrollAnimation'
 import bgImage from '../assets/images/bg.jpeg'
 import Card from '../components/Cards.vue'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
-// ✅ Importações das logos corrigidas:
+useScrollAnimation()
+
 import paraskateLogo from '../assets/images/paraskate.png'
 import recifeVoleiLogo from '../assets/images/recife-volei.png'
 import cbgLogo from '../assets/images/cbg.png'
+import saoJudasTadeuLogo from '../assets/images/sao-judas-tadeu.png'
 
 const benefitCards = [
   {
@@ -247,14 +250,13 @@ const serviceCards = [
   { title: 'Ascensorista', icon: 'fa-solid fa-elevator', description: 'Operação profissional de elevadores' }
 ]
 
-// ✅ Corrigido para usar os imports
 const partners = [
   { name: 'Paraskate Tour', logo: paraskateLogo },
   { name: 'Recife Vôlei', logo: recifeVoleiLogo },
-  { name: 'Confederação Brasileira de Ginástica', logo: cbgLogo }
+  { name: 'Confederação Brasileira de Ginástica', logo: cbgLogo },
+  { name: 'Educandário São Judas Tadeu', logo: saoJudasTadeuLogo }
 ]
 
-// ✅ Carrossel (agora funciona em qualquer tamanho de tela)
 const currentIndex = ref(0)
 let interval = null
 
@@ -280,5 +282,16 @@ onUnmounted(() => {
 <style scoped>
 .transition-transform {
   transition: transform 0.5s ease-in-out;
+}
+
+/* Scroll Animation */
+.v-scroll-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.animate-fadeInUp {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
